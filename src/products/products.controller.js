@@ -1,4 +1,6 @@
 const productsService = require("./products.service");
+const asyncErrorBoundary = require("../errors/asyncErrorBoundary");
+
 
 //example of .then()
 // function productExists(req, res, next) {
@@ -46,6 +48,6 @@ async function list(req, res, next) {
   res.json({ data });
 }
 module.exports = {
-  read: [productExists, read],
-  list,
+  read: [asyncErrorBoundary(productExists), read],
+  list: asyncErrorBoundary(list),
 };
