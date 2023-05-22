@@ -9,7 +9,7 @@ module.exports = [
     supplier_phone: "212-567-0921",
     supplier_email: "pk437g7e4i9@temporary-mail.net",
     supplier_notes:
-      "Beer evangelist. Subtly charming spop culture specialist. Alcohol expert. Foodaholic. Extreme internet aficionado.",
+      "Beer evangelist. Subtly charming pop culture specialist. Alcohol expert. Foodaholic. Extreme internet aficionado.",
     supplier_type_of_goods: "Homeware",
   },
   {
