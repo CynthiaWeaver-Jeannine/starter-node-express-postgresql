@@ -1,6 +1,12 @@
 //requires the knex instance that was initialezed in db/connection
 const knex = require("../db/connection");
+const mapProperties = require("../utils/map-properties");
 
+const addCategory = mapProperties({
+     category_id: "category.category_id",
+     category_name: "category.category_name",
+     category_description: "category.category_description",
+   });
 
 //list() builds a query that selects all the columns from the products table
 function list() {
@@ -10,9 +16,15 @@ function list() {
 //read() creates a query that selects all columns from the table where product_id column matches the argument passed to read()
 //first() returns the first row in the table as an object
 
-function read(productId) {
-    return knex("products").select("*").where({ product_id: productId }).first();
-  }
+function read(product_id) {
+  return knex("products as p")
+    .join("products_categories as pc", "p.product_id", "pc.product_id")
+    .join("categories as c", "pc.category_id", "c.category_id")
+    .select("p.*", "c.*")
+    .where({ "p.product_id": product_id })
+    .first()
+    .then(addCategory);
+}
 
   //this knex query selects the product_quantity_in_stock column, aliasing it as "out_of_stock"
   //it also selects a count all of the products where product_quantity_in_stock is set to 0. 
